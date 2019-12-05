@@ -22,7 +22,7 @@ namespace FoodAdvisor.App
         {
             services.AddControllersWithViews();
             services.AddScoped<RestaurantServices>();
-            services.AddDbContext<RestaurantContext>();
+            services.AddDbContext<RestaurantContext>(options => options.UseSqlServer(Configuration.GetConnectionString("myDb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
