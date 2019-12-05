@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
-
   <ItemGroup>
+    <ProjectReference Include="..\FoodAdvisor.Services\FoodAdvisor.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,12 +21,12 @@ namespace FoodAdvisor.Tests
         {
             using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
-                string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
+                string sql = @"if (exists(Select 1 from sys.tables where name = 'Restaurants'))
+                                DROP Table Restaurants
+                                if (exists(Select 1 from sys.tables where name = 'Grades'))
                                 DROP Table Grades
                                 if (exists(Select 1 from sys.tables where name = 'Addresses'))
-                                DROP Table Addresses
-                                if (exists(Select 1 from sys.tables where name = 'Restaurants'))
-                                DROP Table Restaurants";
+                                DROP Table Addresses";
 
                 try
                 {

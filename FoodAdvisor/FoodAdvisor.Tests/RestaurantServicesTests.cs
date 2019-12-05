@@ -6,7 +6,6 @@ using System.Linq;
 using FoodAdvisor.Models;
 using FoodAdvisor.Services;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
 namespace FoodAdvisor.Tests
@@ -15,20 +14,20 @@ namespace FoodAdvisor.Tests
     [TestFixture]
     public class RestaurantServicesTests
     {
-        List<Restaurant> result = new RestaurantJson().LoadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json");
+        public List<Restaurant> result;
 
         [SetUp]
         public void Setup()
         {
+            result = new RestaurantJson().LoadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json");
             using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
-                string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
+                string sql = @"if (exists(Select 1 from sys.tables where name = 'Restaurants'))
+                                DROP Table Restaurants
+                                if (exists(Select 1 from sys.tables where name = 'Grades'))
                                 DROP Table Grades
                                 if (exists(Select 1 from sys.tables where name = 'Addresses'))
-                                DROP Table Addresses
-                                if (exists(Select 1 from sys.tables where name = 'Restaurants'))
-                                DROP Table Restaurants";
-
+                                DROP Table Addresses";
 
                 try
                 {
@@ -139,7 +138,6 @@ namespace FoodAdvisor.Tests
                 dbContext.Database.EnsureCreated();
                 dbContext.Restaurants.AddRange(result);
                 dbContext.SaveChanges();
-
             }
 
             using (var dbContext = new RestaurantContext())
