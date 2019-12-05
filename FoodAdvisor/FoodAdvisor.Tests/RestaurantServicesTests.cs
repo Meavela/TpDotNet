@@ -22,12 +22,12 @@ namespace FoodAdvisor.Tests
             result = new RestaurantJson().LoadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json");
             using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
-                string sql = @"if (exists(Select 1 from sys.tables where name = 'Restaurants'))
-                                DROP Table Restaurants
-                                if (exists(Select 1 from sys.tables where name = 'Grades'))
+                string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
                                 DROP Table Grades
                                 if (exists(Select 1 from sys.tables where name = 'Addresses'))
-                                DROP Table Addresses";
+                                DROP Table Addresses
+                                if (exists(Select 1 from sys.tables where name = 'Restaurants'))
+                                DROP Table Restaurants";
 
                 try
                 {

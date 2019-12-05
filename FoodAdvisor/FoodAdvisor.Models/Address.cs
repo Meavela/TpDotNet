@@ -25,6 +25,6 @@
         /// <summary>
         /// Gets or sets the restaurant identifier.
         /// </summary>
-        //public int RestaurantId { get; set; }
+        public int RestaurantId { get; set; }
     }
 }

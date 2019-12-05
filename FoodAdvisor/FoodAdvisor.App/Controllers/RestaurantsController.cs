@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FoodAdvisor.Models;
@@ -9,17 +8,17 @@ namespace FoodAdvisor.App.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private readonly RestaurantContext _context;
+        private RestaurantServices _services;
 
-        public RestaurantsController(RestaurantContext context)
+        public RestaurantsController(RestaurantServices services)
         {
-            _context = context;
+            _services = services;
         }
 
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Restaurants.ToListAsync());
+            return View(await _services.GetAll());
         }
 
         // GET: Restaurants/Details/5
@@ -30,8 +29,7 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var restaurant = await _services.Get(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -55,8 +53,7 @@ namespace FoodAdvisor.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(restaurant);
-                await _context.SaveChangesAsync();
+                _ = await _services.Add(restaurant);
                 return RedirectToAction(nameof(Index));
             }
             return View(restaurant);
@@ -70,7 +67,7 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants.FindAsync(id);
+            var restaurant = await _services.Get(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -94,8 +91,7 @@ namespace FoodAdvisor.App.Controllers
             {
                 try
                 {
-                    _context.Update(restaurant);
-                    await _context.SaveChangesAsync();
+                    await _services.Update(restaurant);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -121,8 +117,8 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants
-                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var restaurant = await _services.Get(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -136,15 +132,13 @@ namespace FoodAdvisor.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurant = await _context.Restaurants.FindAsync(id);
-            _context.Restaurants.Remove(restaurant);
-            await _context.SaveChangesAsync();
+            _ = await _services.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool RestaurantExists(int id)
         {
-            return _context.Restaurants.Any(e => e.Id == id);
+            return _services.IsExists(id);
         }
     }
 }

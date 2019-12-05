@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FoodAdvisor.Models;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace FoodAdvisor.Services
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public async Task<Restaurant> Get(int id)
+        public async Task<Restaurant> Get(int? id)
         {
             return await _context.Restaurants.FindAsync(id);
         }
@@ -68,6 +69,11 @@ namespace FoodAdvisor.Services
             _context.Entry(restaurant).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return restaurant;
+        }
+
+        public bool IsExists(int id)
+        {
+            return _context.Restaurants.Any(e => e.Id == id);
         }
     }
 }
