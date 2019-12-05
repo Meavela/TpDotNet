@@ -1,4 +1,6 @@
-﻿namespace FoodAdvisor.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodAdvisor.Models
 {
     public class Address
     {
@@ -10,16 +12,19 @@
         /// <summary>
         /// Gets or sets the street.
         /// </summary>
+        [Required]
         public string Street { get; set; }
 
         /// <summary>
         /// Gets or sets the zip code.
         /// </summary>
+        [Required]
         public string ZipCode { get; set; }
 
         /// <summary>
         /// Gets or sets the city.
         /// </summary>
+        [Required]
         public string City { get; set; }
 
         /// <summary>

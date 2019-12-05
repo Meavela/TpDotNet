@@ -21,7 +21,9 @@ namespace FoodAdvisor.Services
         /// <returns></returns>
         public async Task<List<Restaurant>> GetAll()
         {
-            return await _context.Restaurants.ToListAsync();
+            return await _context.Restaurants.Include(r => r.Address)
+                                             .Include(r => r.Grade)
+                                             .ToListAsync();
         }
 
         /// <summary>
@@ -31,7 +33,9 @@ namespace FoodAdvisor.Services
         /// <returns></returns>
         public async Task<Restaurant> Get(int? id)
         {
-            return await _context.Restaurants.FindAsync(id);
+            return await _context.Restaurants.Include(r => r.Address)
+                                             .Include(r => r.Grade)
+                                             .SingleOrDefaultAsync(r => r.Id == id);
         }
 
         /// <summary>
@@ -71,6 +75,13 @@ namespace FoodAdvisor.Services
             return restaurant;
         }
 
+        /// <summary>
+        /// Determines whether the specified identifier is exists.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified identifier is exists; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsExists(int id)
         {
             return _context.Restaurants.Any(e => e.Id == id);
