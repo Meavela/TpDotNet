@@ -1,8 +1,42 @@
-﻿@{
+﻿@model IEnumerable<FoodAdvisor.Models.Restaurant>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Here you can know a lot of things about your favorites foods !</p>
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade.Score)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.Street) @Html.DisplayFor(modelItem => item.Address.ZipCode) @Html.DisplayFor(modelItem => item.Address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade.Score) / 10
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

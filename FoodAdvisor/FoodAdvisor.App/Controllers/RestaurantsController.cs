@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FoodAdvisor.Models;
 using FoodAdvisor.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace FoodAdvisor.App.Controllers
 {
@@ -10,9 +12,9 @@ namespace FoodAdvisor.App.Controllers
     {
         private RestaurantServices _services;
 
-        public RestaurantsController(RestaurantServices services)
+        public RestaurantsController()
         {
-            _services = services;
+            _services = new RestaurantServices();
         }
 
         // GET: Restaurants
@@ -49,11 +51,33 @@ namespace FoodAdvisor.App.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
+        public async Task<IActionResult> Create(IFormCollection collection, [Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
-                _ = await _services.Add(restaurant);
+                var resto = new Restaurant
+                {
+                    Name = collection["Name"],
+                    Phone = collection["Phone"],
+                    Comment = collection["Comment"],
+                    MailOwner = collection["MailOwner"],
+
+                    Address = new Address
+                    {
+                        Street = collection["Address.Street"],
+                        City = collection["Address.City"],
+                        ZipCode = collection["Address.ZipCode"]
+                    },
+
+                    Grade = new Grade
+                    {
+                        Date = Convert.ToDateTime(collection["Grade.Date"]),
+                        Score = int.Parse(collection["Grade.Score"]),
+                        Comment = collection["Grade.Comment"]
+                    }
+                };
+
+                _ = await _services.Add(resto);
                 return RedirectToAction(nameof(Index));
             }
             return View(restaurant);
@@ -80,7 +104,7 @@ namespace FoodAdvisor.App.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, IFormCollection collection, [Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {
@@ -91,7 +115,19 @@ namespace FoodAdvisor.App.Controllers
             {
                 try
                 {
-                    await _services.Update(restaurant);
+                    var r = await _services.Get(id);
+                    r.Name = collection["Name"];
+                    r.Phone = collection["Phone"];
+                    r.Comment = collection["Comment"];
+                    r.MailOwner = collection["MailOwner"];
+                    r.Address.Street = collection["Address.Street"];
+                    r.Address.City = collection["Address.City"];
+                    r.Address.ZipCode = collection["Address.ZipCode"];
+                    r.Grade.Date = Convert.ToDateTime(collection["Grade.Date"]);
+                    r.Grade.Score = int.Parse(collection["Grade.Score"]);
+                    r.Grade.Comment = collection["Grade.Comment"];
+
+                    await _services.Update(r);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

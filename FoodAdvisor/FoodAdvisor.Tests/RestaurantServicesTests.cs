@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.Json;
 using FoodAdvisor.Models;
 using FoodAdvisor.Services;
 using Microsoft.Data.SqlClient;
@@ -19,7 +20,7 @@ namespace FoodAdvisor.Tests
         [SetUp]
         public void Setup()
         {
-            result = new RestaurantJson().LoadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json");
+            result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json"));
             using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
                 string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
@@ -56,7 +57,7 @@ namespace FoodAdvisor.Tests
                 dbContext.Restaurants.AddRange(result);
                 dbContext.SaveChanges();
 
-                RestaurantServices services = new RestaurantServices(dbContext);
+                RestaurantServices services = new RestaurantServices();
                 var restaurants = services.GetAll().Result;
 
                 Assert.IsTrue(restaurants.Any(r => r.Name == "Au Dragon d'Or"));
@@ -72,7 +73,7 @@ namespace FoodAdvisor.Tests
                 dbContext.Restaurants.AddRange(result);
                 dbContext.SaveChanges();
 
-                RestaurantServices services = new RestaurantServices(dbContext);
+                RestaurantServices services = new RestaurantServices();
                 var restaurant = services.Get(1).Result;
 
                 Assert.IsTrue(restaurant.Name == "Au Dragon d'Or");
@@ -93,10 +94,13 @@ namespace FoodAdvisor.Tests
             {
                 var resto = new Restaurant
                 {
-                    Name = "Test"
+                    Name = "Test",
+                    Comment = "Test",
+                    MailOwner = "test@gmail.com",
+                    Phone = "00.00.00.00.00"
                 };
 
-                RestaurantServices services = new RestaurantServices(dbContext);
+                RestaurantServices services = new RestaurantServices();
                 var newResto = services.Add(resto).Result;
                 var getResto = services.Get(11).Result;
 
@@ -119,10 +123,13 @@ namespace FoodAdvisor.Tests
                 var resto = new Restaurant
                 {
                     Id = 1,
-                    Name = "Test"
+                    Name = "Test",
+                    Comment = "Test",
+                    MailOwner = "test@gmail.com",
+                    Phone = "00.00.00.00.00"
                 };
 
-                RestaurantServices services = new RestaurantServices(dbContext);
+                RestaurantServices services = new RestaurantServices();
                 var updateResto = services.Update(resto).Result;
                 var getResto = services.Get(1).Result;
 
@@ -142,12 +149,63 @@ namespace FoodAdvisor.Tests
 
             using (var dbContext = new RestaurantContext())
             {
-                RestaurantServices services = new RestaurantServices(dbContext);
+                RestaurantServices services = new RestaurantServices();
                 var deleteResto = services.Delete(1).Result;
                 var getResto = services.Get(1).Result;
 
                 Assert.IsTrue(getResto == null);
             }
+        }
+
+        [Test]
+        public void TestIsExist()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            using (var dbContext = new RestaurantContext())
+            {
+                RestaurantServices services = new RestaurantServices();
+                Assert.IsTrue(services.IsExists(1));
+            }
+        }
+
+        [Test]
+        public void TestBestRestaurants()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            var restos = services.GetBestRestaurants(null).Result;
+
+            Assert.IsTrue(restos.Count == result.Count);
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
+        }
+
+        [Test]
+        public void TestBest5Restaurants()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            var restos = services.GetBestRestaurants(5).Result;
+
+            Assert.IsTrue(restos.Count == 5);
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
         }
 
     }

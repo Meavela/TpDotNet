@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h2>Import</h2>
+<hr />
+<form asp-action="Import">
+    <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\importFile.net.json"/>
+    <button type="submit" value="Import" class="btn btn-primary">Import</button>
+</form>
+
+<h2>Export</h2>
+<hr />
+<form asp-action="Export">
+    <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\exportFile.net.json"/>
+    <button type="submit" value="Export" class="btn btn-primary">Export</button>
+</form>

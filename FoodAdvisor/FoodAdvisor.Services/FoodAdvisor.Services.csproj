@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodAdvisor.Models\FoodAdvisor.Models.csproj" />
+    <ProjectReference Include="..\FoodAdvisor.Queries\FoodAdvisor.Queries.csproj" />
   </ItemGroup>
 
 </Project>

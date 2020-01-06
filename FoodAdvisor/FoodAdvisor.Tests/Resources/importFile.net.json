@@ -1,0 +1,22 @@
+[
+	{
+	"Name":"Test2",
+	"Phone":"01.00.00.00.00",
+	"Comment":"Test2",
+	"MailOwner":"test@gmail.com",
+	"Address":
+		{
+		"Street":"Test2",
+		"ZipCode":"38000",
+		"City":"Grenoble",
+		"RestaurantId":12
+		},
+	"Grade":
+		{
+		"Date":1393804800000,
+		"Score":0,
+		"Comment":"Test2",
+		"RestaurantId":12
+		}
+	}
+]

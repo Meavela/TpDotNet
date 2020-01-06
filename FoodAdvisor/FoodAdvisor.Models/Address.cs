@@ -19,6 +19,7 @@ namespace FoodAdvisor.Models
         /// Gets or sets the zip code.
         /// </summary>
         [Required]
+        [RegularExpression(@"^\d{5}$", ErrorMessage = "It's not a right french zip code (example: 38000)")]
         public string ZipCode { get; set; }
 
         /// <summary>

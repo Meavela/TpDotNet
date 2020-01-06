@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FoodAdvisor.App.Models;
+using FoodAdvisor.Services;
 
 namespace FoodAdvisor.App.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private RestaurantServices _services;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _services = new RestaurantServices();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _services.GetBestRestaurants(5));
         }
 
         public IActionResult Privacy()

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodAdvisor.Models;
 using Microsoft.EntityFrameworkCore;
+using static FoodAdvisor.Queries.RestaurantQueries;
 
 namespace FoodAdvisor.Services
 {
@@ -10,9 +11,9 @@ namespace FoodAdvisor.Services
     {
         private readonly RestaurantContext _context;
 
-        public RestaurantServices(RestaurantContext context)
+        public RestaurantServices()
         {
-            _context = context;
+            _context = new RestaurantContext();
         }
 
         /// <summary>
@@ -38,6 +39,16 @@ namespace FoodAdvisor.Services
                                              .SingleOrDefaultAsync(r => r.Id == id);
         }
 
+        public async Task<List<Restaurant>> GetBestRestaurants(int? number)
+        {
+            var restaurants = await _context.Restaurants.Include(r => r.Address)
+                                                                     .Include(r => r.Grade)
+                                                                     .ToListAsync();
+            var bestRestaurants = restaurants.BestRestaurants(number);
+
+            return bestRestaurants;
+        }
+
         /// <summary>
         /// Adds the specified restaurant.
         /// </summary>
@@ -48,6 +59,23 @@ namespace FoodAdvisor.Services
             _context.Restaurants.Add(restaurant);
             await _context.SaveChangesAsync();
             return restaurant;
+        }
+
+        /// <summary>
+        /// Add multiple restaurants
+        /// </summary>
+        /// <param name="restaurants">The restaurants.</param>
+        /// <returns></returns>
+        public async Task<List<Restaurant>> MultipleAdd(List<Restaurant> restaurants)
+        {
+            foreach (var resto in restaurants)
+            {
+                _context.Restaurants.Add(resto);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return restaurants;
         }
 
         /// <summary>

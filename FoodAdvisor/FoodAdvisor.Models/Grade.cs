@@ -16,18 +16,21 @@ namespace FoodAdvisor.Models
         /// </summary>
         [JsonConverter(typeof(JsonDoubleToDateConverter))]
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the score.
         /// </summary>
         [Required]
+        [Range(0,10, ErrorMessage = "Score has to be between 0 and 10")]
         public int Score { get; set; }
 
         /// <summary>
         /// Gets or sets the comment.
         /// </summary>
         [Required]
+        [StringLength(1000, ErrorMessage = "Comment can't be more than 1000.")]
         public string Comment { get; set; }
 
         /// <summary>
