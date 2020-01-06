@@ -30,7 +30,7 @@ namespace FoodAdvisor.Models
         /// Gets or sets the comment.
         /// </summary>
         [Required]
-        [StringLength(1000, ErrorMessage = "Comment can't be more than 1000.")]
+        [StringLength(255, ErrorMessage = "Comment can't be more than 255.")]
         public string Comment { get; set; }
 
         /// <summary>

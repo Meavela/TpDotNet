@@ -19,7 +19,7 @@ namespace FoodAdvisor.Models
         /// Gets or sets the phone.
         /// </summary>
         [Required]
-        [RegularExpression(@"^(\d{2}[.]){4}\d{2}$", ErrorMessage = "Example : 12.34.56.78.00")]
+        [RegularExpression(@"^(\d{2}[.]){4}\d{2}$", ErrorMessage = "Example : 01.23.45.67.89")]
         public string Phone { get; set; }
 
         /// <summary>
