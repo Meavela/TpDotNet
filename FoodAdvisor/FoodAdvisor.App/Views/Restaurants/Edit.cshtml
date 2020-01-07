@@ -4,15 +4,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 style="text-align: center">Edit</h1>
 
 <h4>Restaurant</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+@*<div class="row">*@
+    @*<div class="col-md-4">*@
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -25,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
+                <textarea asp-for="Comment" class="form-control"></textarea>
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,6 +34,8 @@
                 <input asp-for="MailOwner" class="form-control" />
                 <span asp-validation-for="MailOwner" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div>Address</div>
             <hr />
             <div class="form-group">
@@ -50,7 +53,12 @@
                 <input asp-for="Address.City" class="form-control" />
                 <span asp-validation-for="Address.City" class="text-danger"></span>
             </div>
-            <div>Grade</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-12">
+            <div style="text-align: center">Grade</div>
             <hr />
             <div class="form-group">
                 <label asp-for="Grade.Date" class="control-label"></label>
@@ -59,7 +67,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Grade.Score" class="control-label"></label>
-                <input type="number" asp-for="Grade.Score" class="form-control"  />
+                <input type="number" asp-for="Grade.Score" class="form-control" />
                 <span asp-validation-for="Grade.Score" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -68,11 +76,14 @@
                 <span asp-validation-for="Grade.Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-</div>
+</form>
+    @*</div>*@
+@*</div>*@
 
 <div>
     <a asp-action="Index">Back to List</a>

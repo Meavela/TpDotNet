@@ -21,13 +21,15 @@ namespace FoodAdvisor.App.Controllers
             return View();
         }
 
-        public void Export(IFormCollection collection)
+        public IActionResult Export(IFormCollection collection)
         {
             if (ModelState.IsValid)
             {
                 var restaurants = new RestaurantServices().GetAll().Result;
                 new RestaurantJson().WriteFile(restaurants, collection["path"]);
             }
+
+            return RedirectToAction("Index", "Restaurants");
         }
 
         public IActionResult Import(IFormCollection collection)

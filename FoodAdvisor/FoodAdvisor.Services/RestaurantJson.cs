@@ -17,7 +17,7 @@ namespace FoodAdvisor.Services
         /// <returns>List of restaurants</returns>
         public string ReadData(string path)
         {
-            return File.ReadAllText(path);
+            return File.ReadAllText(path, Encoding.GetEncoding("iso-8859-1"));
         }
 
         /// <summary>

@@ -18,10 +18,20 @@ namespace FoodAdvisor.App.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(IFormCollection collection)
         {
-            return View(await _services.GetAll());
+            if (string.IsNullOrEmpty(collection["word"]))
+            {
+                return View(await _services.GetAll());
+            }
+
+            return View(await _services.GetBySearch(collection["word"]));
         }
+
+        //public async Task<IActionResult> Search(IFormCollection collection)
+        //{
+        //    //return View(await _services.GetBySearch(collection["word"]));
+        //}
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)

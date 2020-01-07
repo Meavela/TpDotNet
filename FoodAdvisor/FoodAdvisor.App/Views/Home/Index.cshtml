@@ -9,24 +9,27 @@
     <p>Here you can know a lot of things about your favorites foods !</p>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grade.Score)
-            </th>
-        </tr>
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(model => model.Grade.Score)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.Position)</th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -35,6 +38,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Grade.Score) / 10
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit note</a>
                 </td>
             </tr>
         }

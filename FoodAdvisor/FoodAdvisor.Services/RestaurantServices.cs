@@ -27,6 +27,14 @@ namespace FoodAdvisor.Services
                                              .ToListAsync();
         }
 
+        public async Task<List<Restaurant>> GetBySearch(string word)
+        {
+            var restaurants = await _context.Restaurants.Include(r => r.Address)
+                                                                      .Include(r => r.Grade)
+                                                                      .ToListAsync();
+            return restaurants.RestaurantsBySearch(word);
+        }
+
         /// <summary>
         /// Gets the specified restaurant.
         /// </summary>
@@ -39,14 +47,41 @@ namespace FoodAdvisor.Services
                                              .SingleOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<List<Restaurant>> GetBestRestaurants(int? number)
+        public async Task<List<Restaurant>> SetPositionsRestaurants()
         {
             var restaurants = await _context.Restaurants.Include(r => r.Address)
-                                                                     .Include(r => r.Grade)
-                                                                     .ToListAsync();
-            var bestRestaurants = restaurants.BestRestaurants(number);
+                                                                      .Include(r => r.Grade)
+                                                                      .ToListAsync();
+            restaurants = restaurants.OrderByDescendingRestaurants();
 
-            return bestRestaurants;
+            for (int i = 0; i < restaurants.Count; i++)
+            {
+                restaurants[i].Position = i + 1;
+            }
+
+            return await UpdateList(restaurants);
+        }
+
+        public async Task<List<Restaurant>> UpdateList(List<Restaurant> restaurants)
+        {
+            foreach (var resto in restaurants)
+            {
+                _context.Entry(resto).State = EntityState.Modified;
+            }
+            await _context.SaveChangesAsync();
+            return restaurants;
+        }
+
+        public async Task<List<Restaurant>> GetBestRestaurants(int? number)
+        {
+            var restaurants = await SetPositionsRestaurants();
+
+            if (number != null)
+            {
+                restaurants = restaurants.BestRestaurants((int)number);
+            }
+
+            return restaurants;
         }
 
         /// <summary>
@@ -60,24 +95,7 @@ namespace FoodAdvisor.Services
             await _context.SaveChangesAsync();
             return restaurant;
         }
-
-        /// <summary>
-        /// Add multiple restaurants
-        /// </summary>
-        /// <param name="restaurants">The restaurants.</param>
-        /// <returns></returns>
-        public async Task<List<Restaurant>> MultipleAdd(List<Restaurant> restaurants)
-        {
-            foreach (var resto in restaurants)
-            {
-                _context.Restaurants.Add(resto);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return restaurants;
-        }
-
+        
         /// <summary>
         /// Deletes the specified restaurant.
         /// </summary>

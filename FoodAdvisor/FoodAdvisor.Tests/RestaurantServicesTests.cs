@@ -90,22 +90,19 @@ namespace FoodAdvisor.Tests
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = new RestaurantContext())
+            var resto = new Restaurant
             {
-                var resto = new Restaurant
-                {
-                    Name = "Test",
-                    Comment = "Test",
-                    MailOwner = "test@gmail.com",
-                    Phone = "00.00.00.00.00"
-                };
+                Name = "Test",
+                Comment = "Test",
+                MailOwner = "test@gmail.com",
+                Phone = "00.00.00.00.00"
+            };
 
-                RestaurantServices services = new RestaurantServices();
-                var newResto = services.Add(resto).Result;
-                var getResto = services.Get(11).Result;
+            RestaurantServices services = new RestaurantServices();
+            var newResto = services.Add(resto).Result;
+            var getResto = services.Get(11).Result;
 
-                Assert.IsTrue(newResto == getResto);
-            }
+            Assert.IsTrue(newResto == getResto);
         }
 
         [Test]
@@ -118,23 +115,20 @@ namespace FoodAdvisor.Tests
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = new RestaurantContext())
+            var resto = new Restaurant
             {
-                var resto = new Restaurant
-                {
-                    Id = 1,
-                    Name = "Test",
-                    Comment = "Test",
-                    MailOwner = "test@gmail.com",
-                    Phone = "00.00.00.00.00"
-                };
+                Id = 1,
+                Name = "Test",
+                Comment = "Test",
+                MailOwner = "test@gmail.com",
+                Phone = "00.00.00.00.00"
+            };
 
-                RestaurantServices services = new RestaurantServices();
-                var updateResto = services.Update(resto).Result;
-                var getResto = services.Get(1).Result;
+            RestaurantServices services = new RestaurantServices();
+            var updateResto = services.Update(resto).Result;
+            var getResto = services.Get(1).Result;
 
-                Assert.IsTrue(updateResto == getResto);
-            }
+            Assert.IsTrue(updateResto == getResto);
         }
 
         [Test]
@@ -147,14 +141,11 @@ namespace FoodAdvisor.Tests
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = new RestaurantContext())
-            {
-                RestaurantServices services = new RestaurantServices();
-                var deleteResto = services.Delete(1).Result;
-                var getResto = services.Get(1).Result;
+            RestaurantServices services = new RestaurantServices();
+            var deleteResto = services.Delete(1).Result;
+            var getResto = services.Get(1).Result;
 
-                Assert.IsTrue(getResto == null);
-            }
+            Assert.IsTrue(getResto == null);
         }
 
         [Test]
@@ -167,11 +158,8 @@ namespace FoodAdvisor.Tests
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = new RestaurantContext())
-            {
-                RestaurantServices services = new RestaurantServices();
-                Assert.IsTrue(services.IsExists(1));
-            }
+            RestaurantServices services = new RestaurantServices();
+            Assert.IsTrue(services.IsExists(1));
         }
 
         [Test]
@@ -189,6 +177,26 @@ namespace FoodAdvisor.Tests
 
             Assert.IsTrue(restos.Count == result.Count);
             Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
+        }
+
+        [Test]
+        public void TestSetPositions()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+
+            var restaurants = services.SetPositionsRestaurants().Result;
+
+            foreach (var resto in restaurants)
+            {
+                Assert.IsTrue(resto.Position != null);
+            }
         }
 
         [Test]

@@ -6,17 +6,24 @@ namespace FoodAdvisor.Queries
 {
     public static class RestaurantQueries
     {
-        public static List<Restaurant> BestRestaurants(this List<Restaurant> input, int? number = null)
+        public static List<Restaurant> OrderByPositionRestaurants(this List<Restaurant> input)
         {
-            var restaurants = input.OrderByDescending(x => x.Grade.Score).ToList();
+            return input.OrderBy(x => x.Position).ToList();
+        }
 
-            if (number != null)
-            {
-               var list = restaurants.Take((int)number);
-               return list.ToList();
-            }
+        public static List<Restaurant> OrderByDescendingRestaurants(this List<Restaurant> input)
+        {
+            return input.OrderByDescending(x => x.Grade.Score).ToList();
+        }
 
-            return restaurants;
+        public static List<Restaurant> BestRestaurants(this List<Restaurant> input, int number)
+        {
+            return input.Where(x => x.Position <= 5).ToList();
+        }
+
+        public static List<Restaurant> RestaurantsBySearch(this List<Restaurant> input, string search)
+        {
+            return input.Where(x => x.Name.Contains(search)).ToList();
         }
     }
 }

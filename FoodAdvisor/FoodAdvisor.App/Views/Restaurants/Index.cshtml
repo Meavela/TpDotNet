@@ -4,21 +4,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 style="text-align: center">Restaurants</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div style="width: 100%">
+    <a style="width: 100%" class="btn btn-primary" asp-action="Create">Create New</a>
+</div>
+<br/>
+<form asp-action="Index">
+    <div class="row">
+        <div class="col-md-10">
+            <input name="word" class="form-control" value="" style="text-align: center" placeholder="Search your restaurant ..."/>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" style="width: 100%" value="Search" class="btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+    
+<br/>
+<table class="table table-hover">
+    <thead class="thead-dark">
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Address)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Grade.Score)
             </th>
             <th></th>

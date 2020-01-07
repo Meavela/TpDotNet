@@ -46,5 +46,10 @@ namespace FoodAdvisor.Models
         /// </summary>
         public Grade Grade { get; set; }
 
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
+        public int? Position { get; set; } = null;
+
     }
 }

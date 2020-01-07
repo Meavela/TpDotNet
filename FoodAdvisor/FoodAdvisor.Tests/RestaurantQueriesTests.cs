@@ -58,16 +58,13 @@ namespace FoodAdvisor.Tests
             }
 
             RestaurantServices services = new RestaurantServices();
-            var restos = services.GetAll().Result;
-            var bests = restos.BestRestaurants(5);
+            var restos = services.SetPositionsRestaurants().Result.BestRestaurants(5);
 
-            Assert.IsTrue(bests.Count == 5);
-            Assert.IsTrue(bests[0].Grade.Score >= bests[1].Grade.Score);
-
+            Assert.IsTrue(restos.Count == 5);
         }
 
         [Test]
-        public void TestBestRestaurants()
+        public void TestOrderByPosition()
         {
             using (var dbContext = new RestaurantContext())
             {
@@ -77,11 +74,25 @@ namespace FoodAdvisor.Tests
             }
 
             RestaurantServices services = new RestaurantServices();
-            var restos = services.GetAll().Result;
-            var bests = restos.BestRestaurants();
+            var restos = services.SetPositionsRestaurants().Result.OrderByPositionRestaurants();
 
-            Assert.IsTrue(bests.Count == restos.Count);
-            Assert.IsTrue(bests[0].Grade.Score >= bests[1].Grade.Score);
+        }
+
+        [Test]
+        public void TestOrderByDescendingRestaurants()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            var restos = services.GetAll().Result.OrderByDescendingRestaurants();
+
+            Assert.IsTrue(result.Count == restos.Count);
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
         }
     }
 }
