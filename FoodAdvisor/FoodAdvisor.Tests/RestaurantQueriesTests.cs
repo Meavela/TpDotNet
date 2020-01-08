@@ -76,6 +76,56 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.SetPositionsRestaurants().Result.OrderByPositionRestaurants();
 
+            Assert.IsTrue(restos[0].Position == 1);
+            Assert.IsTrue(restos[1].Position == 2);
+        }
+
+        [Test]
+        public void TestRestaurantBySearchName()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+            
+            RestaurantServices services = new RestaurantServices();
+            var restaurants = services.GetAll().Result.RestaurantsBySearchName("sushi licious");
+
+            Assert.IsTrue(restaurants.Count == 1);
+        }
+
+        [Test]
+        public void TestRestaurantBySearchAddress()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            var restaurants = services.GetAll().Result.RestaurantsBySearchAddress("grenoble");
+
+            Assert.IsTrue(restaurants.Count == 5);
+        }
+
+        [Test]
+        public void TestRestaurantBySearchScore()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            var restaurants = services.GetAll().Result.RestaurantsBySearchScore("5");
+
+            Assert.IsTrue(restaurants.Count == 1);
         }
 
         [Test]

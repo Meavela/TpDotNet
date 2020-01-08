@@ -36,11 +36,11 @@ namespace FoodAdvisor.Services
             {
                 restaurants = restaurants.RestaurantsBySearchName(search[SearchCategory.Name].ToLower());
             }
-            else if (!string.IsNullOrEmpty(search[SearchCategory.Address]))
+            if (!string.IsNullOrEmpty(search[SearchCategory.Address]))
             {
                 restaurants = restaurants.RestaurantsBySearchAddress(search[SearchCategory.Address].ToLower());
             }
-            else if (!string.IsNullOrEmpty(search[SearchCategory.Score]))
+            if (!string.IsNullOrEmpty(search[SearchCategory.Score]))
             {
                 restaurants = restaurants.RestaurantsBySearchScore(search[SearchCategory.Score].ToLower());
             }

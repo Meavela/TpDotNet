@@ -200,6 +200,29 @@ namespace FoodAdvisor.Tests
         }
 
         [Test]
+        public void TestGetBySearch()
+        {
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                dbContext.Restaurants.AddRange(result);
+                dbContext.SaveChanges();
+            }
+
+            RestaurantServices services = new RestaurantServices();
+            Dictionary<SearchCategory,string> search = new Dictionary<SearchCategory, string>();
+            search.Add(SearchCategory.Name, "Restaurant");
+            search.Add(SearchCategory.Address, "Lyon");
+            search.Add(SearchCategory.Score, "10");
+            var restaurants = services.GetBySearch(search).Result;
+
+            Assert.IsTrue(restaurants.Count == 1);
+            Assert.IsTrue(restaurants[0].Name.Contains("Restaurant"));
+            Assert.IsTrue(restaurants[0].Address.City == "Lyon");
+            Assert.IsTrue(restaurants[0].Grade.Score == 10);
+        }
+
+        [Test]
         public void TestBest5Restaurants()
         {
             using (var dbContext = new RestaurantContext())
