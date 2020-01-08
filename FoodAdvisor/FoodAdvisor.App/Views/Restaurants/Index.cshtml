@@ -12,10 +12,16 @@
 <br/>
 <form asp-action="Index">
     <div class="row">
-        <div class="col-md-10">
-            <input name="word" class="form-control" value="" style="text-align: center" placeholder="Search your restaurant ..."/>
+        <div class="col-md-3">
+            <input name="Name" class="form-control" value="" style="text-align: center" placeholder="Search a name ..." />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
+            <input name="Address" class="form-control" value="" style="text-align: center" placeholder="Search an address ..." />
+        </div>
+        <div class="col-md-3">
+            <input name="Score" class="form-control" value="" style="text-align: center" placeholder="Search a score ..." />
+        </div>
+        <div class="col-md-3">
             <button type="submit" style="width: 100%" value="Search" class="btn btn-success">Search</button>
         </div>
     </div>

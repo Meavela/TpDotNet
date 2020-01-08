@@ -8,15 +8,13 @@
 		{
 		"Street":"Test2",
 		"ZipCode":"38000",
-		"City":"Grenoble",
-		"RestaurantId":12
+		"City":"Grenoble"
 		},
 	"Grade":
 		{
 		"Date":1393804800000,
 		"Score":0,
-		"Comment":"Test2",
-		"RestaurantId":12
+		"Comment":"Test2"
 		}
 	}
 ]

@@ -27,12 +27,25 @@ namespace FoodAdvisor.Services
                                              .ToListAsync();
         }
 
-        public async Task<List<Restaurant>> GetBySearch(string word)
+        public async Task<List<Restaurant>> GetBySearch(Dictionary<SearchCategory, string> search)
         {
             var restaurants = await _context.Restaurants.Include(r => r.Address)
                                                                       .Include(r => r.Grade)
                                                                       .ToListAsync();
-            return restaurants.RestaurantsBySearch(word);
+            if (!string.IsNullOrEmpty(search[SearchCategory.Name]))
+            {
+                restaurants = restaurants.RestaurantsBySearchName(search[SearchCategory.Name].ToLower());
+            }
+            else if (!string.IsNullOrEmpty(search[SearchCategory.Address]))
+            {
+                restaurants = restaurants.RestaurantsBySearchAddress(search[SearchCategory.Address].ToLower());
+            }
+            else if (!string.IsNullOrEmpty(search[SearchCategory.Score]))
+            {
+                restaurants = restaurants.RestaurantsBySearchScore(search[SearchCategory.Score].ToLower());
+            }
+
+            return restaurants;
         }
 
         /// <summary>

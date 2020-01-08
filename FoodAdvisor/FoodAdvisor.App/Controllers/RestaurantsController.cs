@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,18 +22,19 @@ namespace FoodAdvisor.App.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index(IFormCollection collection)
         {
-            if (string.IsNullOrEmpty(collection["word"]))
+            Dictionary<SearchCategory,string> search = new Dictionary<SearchCategory, string>();
+            search.Add(SearchCategory.Name, collection[SearchCategory.Name.ToString()]);
+            search.Add(SearchCategory.Address, collection[SearchCategory.Address.ToString()]);
+            search.Add(SearchCategory.Score, collection[SearchCategory.Score.ToString()]);
+
+            if (search.Any(pair => !string.IsNullOrEmpty(pair.Value)))
             {
-                return View(await _services.GetAll());
+                return View(await _services.GetBySearch(search));
             }
 
-            return View(await _services.GetBySearch(collection["word"]));
-        }
+            return View(await _services.GetAll());
 
-        //public async Task<IActionResult> Search(IFormCollection collection)
-        //{
-        //    //return View(await _services.GetBySearch(collection["word"]));
-        //}
+        }
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)

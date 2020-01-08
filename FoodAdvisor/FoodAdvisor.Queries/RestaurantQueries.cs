@@ -21,9 +21,19 @@ namespace FoodAdvisor.Queries
             return input.Where(x => x.Position <= 5).ToList();
         }
 
-        public static List<Restaurant> RestaurantsBySearch(this List<Restaurant> input, string search)
+        public static List<Restaurant> RestaurantsBySearchName(this List<Restaurant> input, string search)
         {
-            return input.Where(x => x.Name.Contains(search)).ToList();
+            return input.Where(x => x.Name.ToLower().Contains(search)).ToList();
+        }
+
+        public static List<Restaurant> RestaurantsBySearchAddress(this List<Restaurant> input, string search)
+        {
+            return input.Where(x => x.Address.Street.ToLower().Contains(search) || x.Address.City.ToLower().Contains(search) || x.Address.ZipCode.ToLower().Contains(search)).ToList();
+        }
+
+        public static List<Restaurant> RestaurantsBySearchScore(this List<Restaurant> input, string search)
+        {
+            return input.Where(x => x.Grade.Score == int.Parse(search)).ToList();
         }
     }
 }
