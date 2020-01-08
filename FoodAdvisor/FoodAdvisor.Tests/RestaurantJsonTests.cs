@@ -47,13 +47,18 @@ namespace FoodAdvisor.Tests
             }
         }
 
-
+        /// <summary>
+        /// Tests read data.
+        /// </summary>
         [Test]
         public void TestReadData()
         {
             Assert.AreEqual(10, result.Count, "Le fichier n'est pas correctement chargé");
         }
 
+        /// <summary>
+        /// Tests write data.
+        /// </summary>
         [Test]
         public void TestWrite()
         {
@@ -63,6 +68,9 @@ namespace FoodAdvisor.Tests
             Assert.AreEqual(5, result2.Count, "Le fichier n'a pas été correctement enregistré");
         }
 
+        /// <summary>
+        /// Tests import data.
+        /// </summary>
         [Test]
         public void TestImport()
         {

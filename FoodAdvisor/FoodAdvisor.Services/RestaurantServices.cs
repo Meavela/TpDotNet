@@ -27,6 +27,11 @@ namespace FoodAdvisor.Services
                                              .ToListAsync();
         }
 
+        /// <summary>
+        /// Gets the restaurants by search.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <returns></returns>
         public async Task<List<Restaurant>> GetBySearch(Dictionary<SearchCategory, string> search)
         {
             var restaurants = await _context.Restaurants.Include(r => r.Address)
@@ -60,6 +65,10 @@ namespace FoodAdvisor.Services
                                              .SingleOrDefaultAsync(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Sets the positions of the restaurants.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Restaurant>> SetPositionsRestaurants()
         {
             var restaurants = await _context.Restaurants.Include(r => r.Address)
@@ -75,6 +84,11 @@ namespace FoodAdvisor.Services
             return await UpdateList(restaurants);
         }
 
+        /// <summary>
+        /// Updates the list of restaurants.
+        /// </summary>
+        /// <param name="restaurants">The restaurants.</param>
+        /// <returns></returns>
         public async Task<List<Restaurant>> UpdateList(List<Restaurant> restaurants)
         {
             foreach (var resto in restaurants)
@@ -85,6 +99,11 @@ namespace FoodAdvisor.Services
             return restaurants;
         }
 
+        /// <summary>
+        /// Gets the best restaurants.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns></returns>
         public async Task<List<Restaurant>> GetBestRestaurants(int? number)
         {
             var restaurants = await SetPositionsRestaurants();

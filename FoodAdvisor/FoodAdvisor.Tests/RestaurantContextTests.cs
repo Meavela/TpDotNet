@@ -47,6 +47,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Initializes the database connection.
+        /// </summary>
         [Test]
         public void InitDbConnection()
         {
@@ -57,6 +60,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests the insert resto in database.
+        /// </summary>
         [Test]
         public void TestInsertRestoInDb()
         {
@@ -79,6 +85,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests the insert address in database.
+        /// </summary>
         [Test]
         public void TestInsertAddressInDb()
         {
@@ -111,6 +120,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests the insert grade in database.
+        /// </summary>
         [Test]
         public void TestInsertGradeInDb()
         {
@@ -144,6 +156,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Create 10 restaurants.
+        /// </summary>
         [Test]
         public void Create10Restaurants()
         {

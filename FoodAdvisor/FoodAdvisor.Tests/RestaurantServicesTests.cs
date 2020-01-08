@@ -48,6 +48,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests to get all restaurants.
+        /// </summary>
         [Test]
         public void TestGetAll()
         {
@@ -64,6 +67,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests to get one restaurant.
+        /// </summary>
         [Test]
         public void TestGetOne()
         {
@@ -80,6 +86,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests to add a restaurant.
+        /// </summary>
         [Test]
         public void TestAdd()
         {
@@ -105,6 +114,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(newResto == getResto);
         }
 
+        /// <summary>
+        /// Tests to update a restaurant.
+        /// </summary>
         [Test]
         public void TestUpdate()
         {
@@ -131,6 +143,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(updateResto == getResto);
         }
 
+        /// <summary>
+        /// Tests to delete a restaurant.
+        /// </summary>
         [Test]
         public void TestDelete()
         {
@@ -148,6 +163,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(getResto == null);
         }
 
+        /// <summary>
+        /// Tests if a restaurant exists.
+        /// </summary>
         [Test]
         public void TestIsExist()
         {
@@ -162,6 +180,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(services.IsExists(1));
         }
 
+        /// <summary>
+        /// Tests to get best restaurants.
+        /// </summary>
         [Test]
         public void TestBestRestaurants()
         {
@@ -179,6 +200,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
         }
 
+        /// <summary>
+        /// Tests to set positions of restaurants.
+        /// </summary>
         [Test]
         public void TestSetPositions()
         {
@@ -199,6 +223,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests to get restaurants by search.
+        /// </summary>
         [Test]
         public void TestGetBySearch()
         {
@@ -222,6 +249,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restaurants[0].Grade.Score == 10);
         }
 
+        /// <summary>
+        /// Tests to get 5 best restaurants.
+        /// </summary>
         [Test]
         public void TestBest5Restaurants()
         {

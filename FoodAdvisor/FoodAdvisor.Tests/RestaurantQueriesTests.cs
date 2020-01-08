@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace FoodAdvisor.Tests
 {
     [ExcludeFromCodeCoverage]
+    [TestFixture]
     public class RestaurantQueriesTests
     {
         public List<Restaurant> result;
@@ -47,6 +48,9 @@ namespace FoodAdvisor.Tests
             }
         }
 
+        /// <summary>
+        /// Tests to get 5 best restaurants.
+        /// </summary>
         [Test]
         public void TestBest5Restaurants()
         {
@@ -63,6 +67,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restos.Count == 5);
         }
 
+        /// <summary>
+        /// Tests to get restaurants order by position.
+        /// </summary>
         [Test]
         public void TestOrderByPosition()
         {
@@ -80,6 +87,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restos[1].Position == 2);
         }
 
+        /// <summary>
+        /// Tests to get restaurants by search the name.
+        /// </summary>
         [Test]
         public void TestRestaurantBySearchName()
         {
@@ -96,6 +106,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restaurants.Count == 1);
         }
 
+        /// <summary>
+        /// Tests to get restaurants by search address.
+        /// </summary>
         [Test]
         public void TestRestaurantBySearchAddress()
         {
@@ -112,6 +125,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restaurants.Count == 5);
         }
 
+        /// <summary>
+        /// Tests to get restaurants by search score.
+        /// </summary>
         [Test]
         public void TestRestaurantBySearchScore()
         {
@@ -128,6 +144,9 @@ namespace FoodAdvisor.Tests
             Assert.IsTrue(restaurants.Count == 1);
         }
 
+        /// <summary>
+        /// Tests to get restaurants order by descending score.
+        /// </summary>
         [Test]
         public void TestOrderByDescendingRestaurants()
         {
