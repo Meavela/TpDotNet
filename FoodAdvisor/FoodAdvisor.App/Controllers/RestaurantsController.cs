@@ -22,10 +22,15 @@ namespace FoodAdvisor.App.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index(IFormCollection collection)
         {
-            Dictionary<SearchCategory,string> search = new Dictionary<SearchCategory, string>();
-            search.Add(SearchCategory.Name, collection[SearchCategory.Name.ToString()]);
-            search.Add(SearchCategory.Address, collection[SearchCategory.Address.ToString()]);
-            search.Add(SearchCategory.Score, collection[SearchCategory.Score.ToString()]);
+            ViewBag.Name = collection[SearchCategory.Name.ToString()];
+            ViewBag.Address = collection[SearchCategory.Address.ToString()];
+            ViewBag.Score = collection[SearchCategory.Score.ToString()];
+            Dictionary<SearchCategory, string> search = new Dictionary<SearchCategory, string>
+            {
+                { SearchCategory.Name, ViewBag.Name },
+                { SearchCategory.Address, ViewBag.Address },
+                { SearchCategory.Score, ViewBag.Score }
+            };
 
             if (search.Any(pair => !string.IsNullOrEmpty(pair.Value)))
             {
