@@ -122,9 +122,9 @@ namespace FoodAdvisor.App.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection, [Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int? id, IFormCollection collection)
         {
-            if (id != restaurant.Id)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -149,7 +149,7 @@ namespace FoodAdvisor.App.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RestaurantExists(restaurant.Id))
+                    if (!RestaurantExists((int)id))
                     {
                         return NotFound();
                     }
@@ -160,7 +160,7 @@ namespace FoodAdvisor.App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(restaurant);
+            return View(await _services.Get(id));
         }
 
         // GET: Restaurants/Delete/5
