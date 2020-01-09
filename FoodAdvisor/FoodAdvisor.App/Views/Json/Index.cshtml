@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,6 +10,13 @@
         <hr />
         <form asp-action="Import">
             <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\importFile.net.json"/>
+            @if (!string.IsNullOrEmpty(ViewBag.ImportMessageSuccess))
+            {
+                <span style="color: green">@ViewBag.ImportMessageSuccess</span>
+            }else if (!string.IsNullOrEmpty(ViewBag.ImportMessageError))
+            {
+                <span style="color: red">@ViewBag.ImportMessageError</span>
+            }
             <br/>
             <button type="submit" value="Import" class="btn btn-primary">Import</button>
         </form>
@@ -17,8 +25,16 @@
         <h2>Export</h2>
         <hr />
         <form asp-action="Export">
-            <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\exportFile.net.json"/>
-            <br/>
+            <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\exportFile.net.json" />
+            @if (!string.IsNullOrEmpty(ViewBag.ExportMessageSuccess))
+            {
+                <span style="color: green">@ViewBag.ExportMessageSuccess</span>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.ExportMessageError))
+            {
+                <span style="color: red">@ViewBag.ExportMessageError</span>
+            }
+            <br />
             <button type="submit" value="Export" class="btn btn-primary">Export</button>
         </form>
     </div>
