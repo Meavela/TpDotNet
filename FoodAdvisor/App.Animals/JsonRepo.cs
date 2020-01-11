@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json;
 
-namespace App.Animals
+namespace App.SousTypes
 {
     public class JsonRepo<T> where T : class
     {

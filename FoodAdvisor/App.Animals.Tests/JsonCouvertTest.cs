@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using App.Animals.Models.Others;
+using App.SousTypes.Models.Others;
 using NUnit.Framework;
 
-namespace App.Animals.Tests
+namespace App.SousTypes.Tests
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]

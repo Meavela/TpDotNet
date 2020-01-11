@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using App.Animals.Models;
+using App.SousTypes.Models;
 
-namespace App.Animals
+namespace App.SousTypes
 {
     public class Converter<T> : JsonConverter<T> where T : class
     {

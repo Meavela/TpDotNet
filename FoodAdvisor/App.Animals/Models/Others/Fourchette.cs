@@ -1,4 +1,4 @@
-﻿namespace App.Animals.Models.Others
+﻿namespace App.SousTypes.Models.Others
 {
     public class Fourchette : Couvert
     {

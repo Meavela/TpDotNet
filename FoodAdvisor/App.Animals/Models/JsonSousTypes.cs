@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App.Animals.Models
+namespace App.SousTypes.Models
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class JsonSousTypes : Attribute

@@ -1,4 +1,4 @@
-﻿namespace App.Animals.Models.Others
+﻿namespace App.SousTypes.Models.Others
 {
     [JsonSousTypes(typeof(Fourchette), "Fourchette")]
     [JsonSousTypes(typeof(Couteau), "Couteau")]

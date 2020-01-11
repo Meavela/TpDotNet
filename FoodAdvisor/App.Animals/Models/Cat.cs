@@ -1,4 +1,4 @@
-﻿namespace App.Animals.Models
+﻿namespace App.SousTypes.Models
 {
     public class Cat : Animal
     {

@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.Queries", "Food
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.App", "FoodAdvisor.App\FoodAdvisor.App.csproj", "{BF6F6F99-414F-4130-9F3F-A666A40FDADB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animals", "Animals", "{61272869-0070-4684-8B88-5BFD5F7F4463}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SousTypes", "SousTypes", "{61272869-0070-4684-8B88-5BFD5F7F4463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Animals", "App.Animals\App.Animals.csproj", "{431FA2D6-41A7-401E-8397-B8819D2B8DB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.SousTypes", "App.Animals\App.SousTypes.csproj", "{431FA2D6-41A7-401E-8397-B8819D2B8DB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Animals.Tests", "App.Animals.Tests\App.Animals.Tests.csproj", "{0B20EB64-CF00-4077-853A-C9C3C21F7C48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.SousTypes.Tests", "App.Animals.Tests\App.SousTypes.Tests.csproj", "{0B20EB64-CF00-4077-853A-C9C3C21F7C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
