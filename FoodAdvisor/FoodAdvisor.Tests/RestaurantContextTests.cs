@@ -15,7 +15,7 @@ namespace FoodAdvisor.Tests
     [ExcludeFromCodeCoverage]
     public class RestaurantContextTests
     {
-        List<Restaurant> result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json"));
+        List<Restaurant> result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@".\Resources\restaurants.net.json"));
 
         [SetUp]
         public void Setup()

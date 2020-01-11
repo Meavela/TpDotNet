@@ -16,4 +16,13 @@
     <ProjectReference Include="..\FoodAdvisor.Models\FoodAdvisor.Models.csproj" />
     <ProjectReference Include="..\FoodAdvisor.Services\FoodAdvisor.Services.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\restaurants.net.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\testFile.net.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

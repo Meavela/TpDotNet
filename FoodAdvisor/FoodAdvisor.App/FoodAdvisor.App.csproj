@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Resources\exportFile.net.json" />
+    <Content Remove="Resources\importFile.net.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,6 +20,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodAdvisor.Services\FoodAdvisor.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\exportFile.net.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\importFile.net.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

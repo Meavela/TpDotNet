@@ -15,7 +15,7 @@ namespace FoodAdvisor.Tests
     [ExcludeFromCodeCoverage]
     public class RestaurantJsonTests
     {
-        List<Restaurant> result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json"));
+        List<Restaurant> result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@".\Resources\restaurants.net.json"));
 
         [SetUp]
         public void Setup()
@@ -63,8 +63,8 @@ namespace FoodAdvisor.Tests
         public void TestWrite()
         {
             var filtre = result.Where(r => r.Address.City == "Grenoble");
-            new RestaurantJson().WriteFile(filtre, @"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\testFile.net.json");
-            var result2 = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\testFile.net.json"));
+            new RestaurantJson().WriteFile(filtre, @".\Resources\testFile.net.json");
+            var result2 = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@".\Resources\testFile.net.json"));
             Assert.AreEqual(5, result2.Count, "Le fichier n'a pas été correctement enregistré");
         }
 
@@ -78,7 +78,7 @@ namespace FoodAdvisor.Tests
             {
                 dbContext.Database.EnsureCreated();
             }
-            new RestaurantJson().Import(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json");
+            new RestaurantJson().Import(@".\Resources\restaurants.net.json");
             var restaurants = new RestaurantServices().GetAll();
 
             Assert.AreEqual(10, restaurants.Result.Count, "Le fichier n'est pas correctement chargé");

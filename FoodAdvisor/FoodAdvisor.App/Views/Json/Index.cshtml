@@ -9,7 +9,7 @@
         <h2>Import</h2>
         <hr />
         <form asp-action="Import">
-            <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\importFile.net.json"/>
+            <input name="path" class="form-control" value=".\Resources\importFile.net.json"/>
             @if (!string.IsNullOrEmpty(ViewBag.ImportMessageSuccess))
             {
                 <span style="color: green">@ViewBag.ImportMessageSuccess</span>
@@ -25,7 +25,7 @@
         <h2>Export</h2>
         <hr />
         <form asp-action="Export">
-            <input name="path" class="form-control" value="E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\exportFile.net.json" />
+            <input name="path" class="form-control" value=".\Resources\exportFile.net.json" />
             @if (!string.IsNullOrEmpty(ViewBag.ExportMessageSuccess))
             {
                 <span style="color: green">@ViewBag.ExportMessageSuccess</span>

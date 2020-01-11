@@ -20,7 +20,7 @@ namespace FoodAdvisor.Tests
         [SetUp]
         public void Setup()
         {
-            result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@"E:\Cours\B3\dotnet\TpDotNet\FoodAdvisor\FoodAdvisor.Tests\Resources\restaurants.net.json"));
+            result = JsonSerializer.Deserialize<List<Restaurant>>(new RestaurantJson().ReadData(@".\Resources\restaurants.net.json"));
             using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
                 string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
