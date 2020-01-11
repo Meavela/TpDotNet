@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAdvisor.Services", "FoodAdvisor.Services\FoodAdvisor.Services.csproj", "{F8DC5D4E-C022-4EB3-A1E0-02B3518F0EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.Services", "FoodAdvisor.Services\FoodAdvisor.Services.csproj", "{F8DC5D4E-C022-4EB3-A1E0-02B3518F0EEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAdvisor.Tests", "FoodAdvisor.Tests\FoodAdvisor.Tests.csproj", "{AEC425BF-C5EA-4112-B2D5-950C5EF3BFC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.Tests", "FoodAdvisor.Tests\FoodAdvisor.Tests.csproj", "{AEC425BF-C5EA-4112-B2D5-950C5EF3BFC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAdvisor.Models", "FoodAdvisor.Models\FoodAdvisor.Models.csproj", "{46345537-15F0-4087-AE00-8E6308CCA565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.Models", "FoodAdvisor.Models\FoodAdvisor.Models.csproj", "{46345537-15F0-4087-AE00-8E6308CCA565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAdvisor.Queries", "FoodAdvisor.Queries\FoodAdvisor.Queries.csproj", "{A417FC06-CE03-44BE-86E6-B28328BF7C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.Queries", "FoodAdvisor.Queries\FoodAdvisor.Queries.csproj", "{A417FC06-CE03-44BE-86E6-B28328BF7C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAdvisor.App", "FoodAdvisor.App\FoodAdvisor.App.csproj", "{BF6F6F99-414F-4130-9F3F-A666A40FDADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAdvisor.App", "FoodAdvisor.App\FoodAdvisor.App.csproj", "{BF6F6F99-414F-4130-9F3F-A666A40FDADB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animals", "Animals", "{61272869-0070-4684-8B88-5BFD5F7F4463}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Animals", "App.Animals\App.Animals.csproj", "{431FA2D6-41A7-401E-8397-B8819D2B8DB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Animals.Tests", "App.Animals.Tests\App.Animals.Tests.csproj", "{0B20EB64-CF00-4077-853A-C9C3C21F7C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,21 @@ Global
 		{BF6F6F99-414F-4130-9F3F-A666A40FDADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6F6F99-414F-4130-9F3F-A666A40FDADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF6F6F99-414F-4130-9F3F-A666A40FDADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{431FA2D6-41A7-401E-8397-B8819D2B8DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{431FA2D6-41A7-401E-8397-B8819D2B8DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{431FA2D6-41A7-401E-8397-B8819D2B8DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{431FA2D6-41A7-401E-8397-B8819D2B8DB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B20EB64-CF00-4077-853A-C9C3C21F7C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B20EB64-CF00-4077-853A-C9C3C21F7C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B20EB64-CF00-4077-853A-C9C3C21F7C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B20EB64-CF00-4077-853A-C9C3C21F7C48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{431FA2D6-41A7-401E-8397-B8819D2B8DB3} = {61272869-0070-4684-8B88-5BFD5F7F4463}
+		{0B20EB64-CF00-4077-853A-C9C3C21F7C48} = {61272869-0070-4684-8B88-5BFD5F7F4463}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC93D347-5F33-4492-925F-425C538F25FF}
