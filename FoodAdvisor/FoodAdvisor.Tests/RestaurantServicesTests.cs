@@ -63,7 +63,7 @@ namespace FoodAdvisor.Tests
                 RestaurantServices services = new RestaurantServices();
                 var restaurants = services.GetAll().Result;
 
-                Assert.IsTrue(restaurants.Any(r => r.Name == "Au Dragon d'Or"));
+                Assert.IsTrue(restaurants.Any(r => r.Name == "Au Dragon d'Or"), "Ne récupère pas tous les restaurants");
             }
         }
 
@@ -82,7 +82,7 @@ namespace FoodAdvisor.Tests
                 RestaurantServices services = new RestaurantServices();
                 var restaurant = services.Get(1).Result;
 
-                Assert.IsTrue(restaurant.Name == "Au Dragon d'Or");
+                Assert.IsTrue(restaurant.Name == "Au Dragon d'Or", "Ne récupère pas le restaurant correspondant");
             }
         }
 
@@ -111,7 +111,7 @@ namespace FoodAdvisor.Tests
             var newResto = services.Add(resto).Result;
             var getResto = services.Get(11).Result;
 
-            Assert.IsTrue(newResto == getResto);
+            Assert.IsTrue(newResto == getResto, "N'ajoute pas en base de données le restaurant");
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace FoodAdvisor.Tests
             var updateResto = services.Update(resto).Result;
             var getResto = services.Get(1).Result;
 
-            Assert.IsTrue(updateResto == getResto);
+            Assert.IsTrue(updateResto == getResto, "Ne change pas le restaurant en base de données");
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace FoodAdvisor.Tests
             var deleteResto = services.Delete(1).Result;
             var getResto = services.Get(1).Result;
 
-            Assert.IsTrue(getResto == null);
+            Assert.IsTrue(getResto == null, "Ne supprime pas le restaurant de la base de données");
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace FoodAdvisor.Tests
             }
 
             RestaurantServices services = new RestaurantServices();
-            Assert.IsTrue(services.IsExists(1));
+            Assert.IsTrue(services.IsExists(1), "Le restaurant n'existe pas en base de données");
         }
 
         /// <summary>
@@ -196,8 +196,8 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.GetBestRestaurants(null).Result;
 
-            Assert.IsTrue(restos.Count == result.Count);
-            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
+            Assert.IsTrue(restos.Count == result.Count, "Le nombre de restaurants ne correspond pas");
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score, "Ne trie pas correctement les restaurants");
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace FoodAdvisor.Tests
 
             foreach (var resto in restaurants)
             {
-                Assert.IsTrue(resto.Position != null);
+                Assert.IsTrue(resto.Position != null, "Ne change pas les positions des restaurants");
             }
         }
 
@@ -243,10 +243,10 @@ namespace FoodAdvisor.Tests
             search.Add(SearchCategory.Score, "10");
             var restaurants = services.GetBySearch(search).Result;
 
-            Assert.IsTrue(restaurants.Count == 1);
-            Assert.IsTrue(restaurants[0].Name.Contains("Restaurant"));
-            Assert.IsTrue(restaurants[0].Address.City == "Lyon");
-            Assert.IsTrue(restaurants[0].Grade.Score == 10);
+            Assert.IsTrue(restaurants.Count == 1, "N'a pas trouvé le bon nombre de restaurant correspondant");
+            Assert.IsTrue(restaurants[0].Name.Contains("Restaurant"), "Le restaurant ne contient pas 'Restaurant' dans son nom");
+            Assert.IsTrue(restaurants[0].Address.City == "Lyon", "Le restaurant ne contient pas 'Lyon' dans son adresse");
+            Assert.IsTrue(restaurants[0].Grade.Score == 10, "Le restaurant n'a pas un score de 10");
         }
 
         /// <summary>
@@ -265,8 +265,8 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.GetBestRestaurants(5).Result;
 
-            Assert.IsTrue(restos.Count == 5);
-            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
+            Assert.IsTrue(restos.Count == 5, "Ne récupère pas 5 restaurants");
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score, "Ne trie pas corretement les 5 restaurants");
         }
 
     }

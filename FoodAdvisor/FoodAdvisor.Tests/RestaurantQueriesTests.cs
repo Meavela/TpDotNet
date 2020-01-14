@@ -64,7 +64,7 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.SetPositionsRestaurants().Result.BestRestaurants(5);
 
-            Assert.IsTrue(restos.Count == 5);
+            Assert.IsTrue(restos.Count == 5, "Ne prend pas les 5 meilleurs restaurants...");
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.SetPositionsRestaurants().Result.OrderByPositionRestaurants();
 
-            Assert.IsTrue(restos[0].Position == 1);
-            Assert.IsTrue(restos[1].Position == 2);
+            Assert.IsTrue(restos[0].Position == 1, "Ne trie pas correctement les positions");
+            Assert.IsTrue(restos[1].Position == 2, "Ne trie pas correctement les positions");
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restaurants = services.GetAll().Result.RestaurantsBySearchName("sushi licious");
 
-            Assert.IsTrue(restaurants.Count == 1);
+            Assert.IsTrue(restaurants.Count == 1, "Ne trouve pas le restaurant correspondant");
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restaurants = services.GetAll().Result.RestaurantsBySearchAddress("grenoble");
 
-            Assert.IsTrue(restaurants.Count == 5);
+            Assert.IsTrue(restaurants.Count == 5, "Ne trouve pas les restaurants correspondants");
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restaurants = services.GetAll().Result.RestaurantsBySearchScore("5");
 
-            Assert.IsTrue(restaurants.Count == 1);
+            Assert.IsTrue(restaurants.Count == 1, "Ne trouve pas le restaurant correspondant");
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace FoodAdvisor.Tests
             RestaurantServices services = new RestaurantServices();
             var restos = services.GetAll().Result.OrderByDescendingRestaurants();
 
-            Assert.IsTrue(result.Count == restos.Count);
-            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score);
+            Assert.IsTrue(result.Count == restos.Count, "Le nombre de restaurants ne correspond pas");
+            Assert.IsTrue(restos[0].Grade.Score >= restos[1].Grade.Score, "Les restaurants ne sont pas correctement triés");
         }
     }
 }
