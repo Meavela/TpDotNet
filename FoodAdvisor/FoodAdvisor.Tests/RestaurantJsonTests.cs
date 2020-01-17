@@ -75,6 +75,26 @@ namespace FoodAdvisor.Tests
         }
 
         /// <summary>
+        /// Tests import when catch error
+        /// </summary>
+        [Test]
+        public void TestImport_Error()
+        {
+            var isOk = new RestaurantJson().Import("lol").Result;
+            Assert.IsFalse(isOk);
+        }
+
+        /// <summary>
+        /// Tests export when catch error
+        /// </summary>
+        [Test]
+        public void TestExport_Error()
+        {
+            var isOk = new RestaurantJson().WriteFile(result, "");
+            Assert.IsFalse(isOk);
+        }
+
+        /// <summary>
         /// Tests write data.
         /// </summary>
         [Test]

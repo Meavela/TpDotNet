@@ -31,10 +31,7 @@ namespace FoodAdvisor.Services
             {
                 RestaurantServices services = new RestaurantServices();
                 var restaurants = JsonSerializer.Deserialize<List<Restaurant>>(ReadData(path));
-                foreach (var resto in restaurants)
-                {
-                    await services.Add(resto);
-                }
+                await services.AddMultiple(restaurants);
 
                 return true;
 

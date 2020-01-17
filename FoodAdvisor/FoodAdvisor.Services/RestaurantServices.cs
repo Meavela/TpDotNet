@@ -149,6 +149,20 @@ namespace FoodAdvisor.Services
 
             return restaurant;
         }
+
+        /// <summary>
+        /// Add multiple restaurants
+        /// </summary>
+        /// <param name="restaurants">The list of restaurants</param>
+        /// <returns></returns>
+        public async Task<List<Restaurant>> AddMultiple(List<Restaurant> restaurants)
+        {
+            // add a list of restaurants in the database
+            _context.Restaurants.AddRange(restaurants);
+            await _context.SaveChangesAsync();
+
+            return restaurants;
+        }
         
         /// <summary>
         /// Deletes the specified restaurant.
