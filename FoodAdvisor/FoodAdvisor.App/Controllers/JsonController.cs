@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using FoodAdvisor.App.Models;
 using FoodAdvisor.Services;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,8 @@ namespace FoodAdvisor.App.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.UrlImport = @".\Resources\restaurants.net.json";
+            ViewBag.UrlExport = @".\Resources\exportFile.net.json";
             return View();
         }
 
@@ -25,16 +28,27 @@ namespace FoodAdvisor.App.Controllers
             if (ModelState.IsValid)
             {
                 var restaurants = new RestaurantServices().GetAll().Result;
-                new RestaurantJson().WriteFile(restaurants, collection["path"]);
+                var isOk = new RestaurantJson().WriteFile(restaurants, collection["path"]);
 
-                ViewBag.ExportMessageSuccess = "The data has been successfully exported. 👍";
-                ViewBag.ExportMessageError = "";
+                if (isOk)
+                {
+                    ViewBag.ExportMessageSuccess = "The data has been successfully exported. 👍";
+                    ViewBag.ExportMessageError = "";
+                }
+                else
+                {
+                    ViewBag.ExportMessageSuccess = "";
+                    ViewBag.ExportMessageError = "An error occured when try to export the data. 😦";
+                }
             }
             else
             {
                 ViewBag.ExportMessageSuccess = "";
                 ViewBag.ExportMessageError = "An error occured when try to export the data. 😦";
             }
+
+            ViewBag.UrlExport = collection["path"];
+            ViewBag.UrlImport = @".\Resources\restaurants.net.json";
 
             return View("Index");
         }
@@ -43,16 +57,26 @@ namespace FoodAdvisor.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                new RestaurantJson().Import(collection["path"]);
-
-                ViewBag.ImportMessageSuccess = "The data has been successfully imported. 👍";
-                ViewBag.ImportMessageError = "";
+                var isOk = new RestaurantJson().Import(collection["path"]).Result;
+                if (isOk)
+                {
+                    ViewBag.ImportMessageSuccess = "The data has been successfully imported. 👍";
+                    ViewBag.ImportMessageError = "";
+                }
+                else
+                {
+                    ViewBag.ImportMessageSuccess = "";
+                    ViewBag.ImportMessageError = "An error occured when try to import the data. 😦";
+                }
             }
             else
             {
                 ViewBag.ImportMessageSuccess = "";
                 ViewBag.ImportMessageError = "An error occured when try to import the data. 😦";
             }
+
+            ViewBag.UrlImport = collection["path"];
+            ViewBag.UrlExport = @".\Resources\exportFile.net.json";
 
             return View("Index");
         }

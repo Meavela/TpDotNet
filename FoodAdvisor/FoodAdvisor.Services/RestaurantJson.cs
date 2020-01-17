@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using FoodAdvisor.Models;
 
 namespace FoodAdvisor.Services
@@ -23,14 +25,25 @@ namespace FoodAdvisor.Services
         /// Imports the specified restaurants.
         /// </summary>
         /// <param name="path">The path.</param>
-        public async void Import(string path)
+        public async Task<bool> Import(string path)
         {
-            RestaurantServices services = new RestaurantServices();
-            var restaurants = JsonSerializer.Deserialize<List<Restaurant>>(ReadData(path));
-            foreach (var resto in restaurants)
+            try
             {
-                await services.Add(resto);
+                RestaurantServices services = new RestaurantServices();
+                var restaurants = JsonSerializer.Deserialize<List<Restaurant>>(ReadData(path));
+                foreach (var resto in restaurants)
+                {
+                    await services.Add(resto);
+                }
+
+                return true;
+
             }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -38,10 +51,20 @@ namespace FoodAdvisor.Services
         /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="path">The path.</param>
-        public void WriteFile(IEnumerable<Restaurant> data, string path)
+        public bool WriteFile(IEnumerable<Restaurant> data, string path)
         {
-            var jsonContent = JsonSerializer.Serialize(data);
-            File.WriteAllText(path, jsonContent);
+            try
+            {
+                var jsonContent = JsonSerializer.Serialize(data);
+                File.WriteAllText(path, jsonContent);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
     }
 }
