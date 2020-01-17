@@ -32,8 +32,6 @@ namespace FoodAdvisor.Tests
             using (var dbContext = new RestaurantContext())
             {
                 dbContext.Database.EnsureCreated();
-                //dbContext.Restaurants.AddRange(result);
-                //dbContext.SaveChanges();
             }
         }
 

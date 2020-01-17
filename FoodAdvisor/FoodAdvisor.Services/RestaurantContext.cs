@@ -5,10 +5,6 @@ namespace FoodAdvisor.Services
 {
     public class RestaurantContext : DbContext
     {
-        //public RestaurantContext(DbContextOptions options)
-        //    : base(options)
-        //{ }
-
         private string connectionString { get; set; }
 
         public RestaurantContext()
