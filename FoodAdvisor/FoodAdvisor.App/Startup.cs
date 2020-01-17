@@ -51,6 +51,11 @@ namespace FoodAdvisor.App
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+            }
         }
     }
 }

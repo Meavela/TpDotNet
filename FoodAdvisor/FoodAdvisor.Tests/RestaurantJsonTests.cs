@@ -20,7 +20,27 @@ namespace FoodAdvisor.Tests
         [SetUp]
         public void Setup()
         {
-            using (SqlConnection connection = new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
+
+            DeleteTables();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            DeleteTables();
+
+            using (var dbContext = new RestaurantContext())
+            {
+                dbContext.Database.EnsureCreated();
+                //dbContext.Restaurants.AddRange(result);
+                //dbContext.SaveChanges();
+            }
+        }
+
+        public void DeleteTables()
+        {
+            using (SqlConnection connection =
+                new SqlConnection(@"server=Poulpe;database=FoodAdvisor;trusted_connection=true;"))
             {
                 string sql = @"if (exists(Select 1 from sys.tables where name = 'Grades'))
                                 DROP Table Grades
