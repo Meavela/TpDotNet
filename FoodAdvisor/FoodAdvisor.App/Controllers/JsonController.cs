@@ -10,10 +10,12 @@ namespace FoodAdvisor.App.Controllers
     public class JsonController : Controller
     {
         private RestaurantServices _services;
+        private RestaurantJson _json;
 
         public JsonController()
         {
             _services = new RestaurantServices();
+            _json = new RestaurantJson();
         }
 
         public IActionResult Index()
@@ -27,8 +29,8 @@ namespace FoodAdvisor.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var restaurants = new RestaurantServices().GetAll().Result;
-                var isOk = new RestaurantJson().WriteFile(restaurants, collection["path"]);
+                var restaurants = _services.GetAll().Result;
+                var isOk = _json.WriteFile(restaurants, collection["path"]);
 
                 if (isOk)
                 {
@@ -57,7 +59,7 @@ namespace FoodAdvisor.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isOk = new RestaurantJson().Import(collection["path"]).Result;
+                var isOk = _json.Import(collection["path"]).Result;
                 if (isOk)
                 {
                     ViewBag.ImportMessageSuccess = "The data has been successfully imported. 👍";

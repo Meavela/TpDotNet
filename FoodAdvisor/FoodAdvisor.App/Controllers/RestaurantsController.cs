@@ -69,35 +69,36 @@ namespace FoodAdvisor.App.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection, [Bind("Id,Name,Phone,Comment,MailOwner")] Restaurant restaurant)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
+            var restaurant = new Restaurant
+            {
+                Name = collection["Name"],
+                Phone = collection["Phone"],
+                Comment = collection["Comment"],
+                MailOwner = collection["MailOwner"],
+
+                Address = new Address
+                {
+                    Street = collection["Address.Street"],
+                    City = collection["Address.City"],
+                    ZipCode = collection["Address.ZipCode"]
+                },
+
+                Grade = new Grade
+                {
+                    Date = Convert.ToDateTime(collection["Grade.Date"]),
+                    Score = int.Parse(collection["Grade.Score"]),
+                    Comment = collection["Grade.Comment"]
+                }
+            };
+
             if (ModelState.IsValid)
             {
-                var resto = new Restaurant
-                {
-                    Name = collection["Name"],
-                    Phone = collection["Phone"],
-                    Comment = collection["Comment"],
-                    MailOwner = collection["MailOwner"],
-
-                    Address = new Address
-                    {
-                        Street = collection["Address.Street"],
-                        City = collection["Address.City"],
-                        ZipCode = collection["Address.ZipCode"]
-                    },
-
-                    Grade = new Grade
-                    {
-                        Date = Convert.ToDateTime(collection["Grade.Date"]),
-                        Score = int.Parse(collection["Grade.Score"]),
-                        Comment = collection["Grade.Comment"]
-                    }
-                };
-
-                _ = await _services.Add(resto);
+                _ = await _services.Add(restaurant);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(restaurant);
         }
 
@@ -110,6 +111,7 @@ namespace FoodAdvisor.App.Controllers
             }
 
             var restaurant = await _services.Get(id);
+
             if (restaurant == null)
             {
                 return NotFound();
