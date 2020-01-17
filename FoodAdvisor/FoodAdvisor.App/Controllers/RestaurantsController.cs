@@ -22,6 +22,7 @@ namespace FoodAdvisor.App.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index(IFormCollection collection)
         {
+            // get values of the 3 input
             ViewBag.Name = collection[SearchCategory.Name.ToString()];
             ViewBag.Address = collection[SearchCategory.Address.ToString()];
             ViewBag.Score = collection[SearchCategory.Score.ToString()];
@@ -32,11 +33,14 @@ namespace FoodAdvisor.App.Controllers
                 { SearchCategory.Score, ViewBag.Score }
             };
 
+            // check if at least one field is not empty
             if (search.Any(pair => !string.IsNullOrEmpty(pair.Value)))
             {
+                // return the list of restaurants which correspond at the search of user
                 return View(await _services.GetBySearch(search));
             }
 
+            // otherwise return all the restaurants
             return View(await _services.GetAll());
 
         }
@@ -49,7 +53,9 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
+            // get the information of the restaurant selected
             var restaurant = await _services.Get(id);
+
             if (restaurant == null)
             {
                 return NotFound();
@@ -71,6 +77,7 @@ namespace FoodAdvisor.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection collection)
         {
+            // create a restaurant with all the values of the fields of the form
             var restaurant = new Restaurant
             {
                 Name = collection["Name"],
@@ -93,12 +100,14 @@ namespace FoodAdvisor.App.Controllers
                 }
             };
 
+            // if the form is valid, add the restaurant to the database
             if (ModelState.IsValid)
             {
                 _ = await _services.Add(restaurant);
                 return RedirectToAction(nameof(Index));
             }
 
+            // otherwise return the view with the fields already edit
             return View(restaurant);
         }
 
@@ -110,12 +119,14 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
+            // get the information of the restaurant selected
             var restaurant = await _services.Get(id);
 
             if (restaurant == null)
             {
                 return NotFound();
             }
+
             return View(restaurant);
         }
 
@@ -135,7 +146,10 @@ namespace FoodAdvisor.App.Controllers
             {
                 try
                 {
+                    // get the restaurant in the database
                     var r = await _services.Get(id);
+
+                    // add all the modify fields
                     r.Name = collection["Name"];
                     r.Phone = collection["Phone"];
                     r.Comment = collection["Comment"];
@@ -147,6 +161,7 @@ namespace FoodAdvisor.App.Controllers
                     r.Grade.Score = int.Parse(collection["Grade.Score"]);
                     r.Grade.Comment = collection["Grade.Comment"];
 
+                    // update it in database
                     await _services.Update(r);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -160,8 +175,12 @@ namespace FoodAdvisor.App.Controllers
                         throw;
                     }
                 }
+
+                // then redirect to the list of restaurants
                 return RedirectToAction(nameof(Index));
             }
+
+            // otherwise return the view with the information of the restaurant
             return View(await _services.Get(id));
         }
 
@@ -173,8 +192,9 @@ namespace FoodAdvisor.App.Controllers
                 return NotFound();
             }
 
-
+            // get the information of the restaurant
             var restaurant = await _services.Get(id);
+
             if (restaurant == null)
             {
                 return NotFound();
@@ -188,10 +208,18 @@ namespace FoodAdvisor.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // delete the restaurant with the specified id
             _ = await _services.Delete(id);
+
+            // redirect to the list of restaurants
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Check if the restaurant exists
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         private bool RestaurantExists(int id)
         {
             return _services.IsExists(id);
